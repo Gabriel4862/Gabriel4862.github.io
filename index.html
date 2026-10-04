@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de Gestión Ciudadana para el COPACI de Granjas Guadalupe">
+    <meta name="author" content="COPACI Granjas Guadalupe">
+    <title>Inicio | Sistema de Gestión Ciudadana - COPACI Granjas Guadalupe</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <div class="barra-progreso" id="barraProgreso" aria-hidden="true"></div>
+
+    <header class="encabezado-principal">
+        <div class="particulas" id="particulas" aria-hidden="true"></div>
+        <div class="contenedor-header">
+            <div class="logo-copaci" aria-label="Logotipo COPACI"> </div>
+            <h1>Sistema de Gestión Ciudadana</h1>
+            <p class="eslogan">COPACI Granjas Guadalupe</p>
+            <p class="fecha-hora" id="fechaHora">Cargando fecha...</p>
+        </div>
+    </header>
+
+    <div class="banner-sesion" id="bannerSesion" style="display:none;">
+        <div class="banner-sesion-contenido">
+            <span class="banner-sesion-icono"> </span>
+            <div class="banner-sesion-texto">
+                <strong>Estás navegando como invitado</strong>
+                <span>Puedes consultar toda la información pública. Para reportar, inscribirte o enviar trámites, inicia sesión.</span>
+            </div>
+            <button class="btn-primario btn-sm" id="btnLoginBanner" style="margin:0;"> Iniciar Sesión</button>
+        </div>
+    </div>
+
+    <nav class="navegacion-principal" aria-label="Navegación principal">
+        <div class="nav-contenedor">
+            <button class="btn-hamburguesa" id="btnHamburguesa" aria-label="Abrir menú" aria-expanded="false">☰</button>
+            <ul class="menu" id="menu">
+                <li><a href="#inicio" class="activo"> Inicio</a></li>
+                <li><a href="#servicios"> Servicios</a></li>
+                <li><a href="#noticias"> Noticias</a></li>
+                <li><a href="#reportes" id="enlaceReportes"> Reportes</a></li>
+                <li><a href="#contacto"> Contacto</a></li>
+                <li class="solo-admin-block"><a href="#admin" id="enlaceAdmin"> Panel Admin</a></li>
+            </ul>
+            <div class="info-usuario" id="infoUsuario" style="display:none;">
+                <span class="badge-rol" id="badgeRol"></span>
+                <button class="btn-logout" id="btnLogout" title="Cerrar sesión"> </button>
+            </div>
+            <button class="btn-tema" id="btnTema" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro">🌙</button>
+            <button class="btn-primario btn-sm" id="btnLoginNav" style="margin:0; margin-left:8px; padding:10px 16px;"> Iniciar Sesión</button>
+        </div>
+    </nav>
+
+    <main class="contenido-principal">
+
+        <section id="inicio" class="banner-bienvenida reveal">
+            <div class="banner-texto">
+                <h2> Bienvenido al Portal Ciudadano</h2>
+                <p>Plataforma digital del Comité de Participación Ciudadana (COPACI) de Granjas Guadalupe. Aquí podrás consultar información, reportar incidencias y participar en las decisiones de tu comunidad.</p>
+
+                <div class="seccion-estadisticas">
+                    <div class="estadistica">
+                        <span class="numero" data-contador="1250">0</span>
+                        <span class="etiqueta">Vecinos activos</span>
+                    </div>
+                    <div class="estadistica">
+                        <span class="numero" data-contador="342">0</span>
+                        <span class="etiqueta">Reportes atendidos</span>
+                    </div>
+                    <div class="estadistica">
+                        <span class="numero" data-contador="28">0</span>
+                        <span class="etiqueta">Asambleas</span>
+                    </div>
+                    <div class="estadistica">
+                        <span class="numero" data-contador="98">0</span>
+                        <span class="etiqueta">% Satisfacción</span>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-primario" id="btnComenzar"> Comenzar ahora</button>
+            </div>
+            <div class="banner-imagen"> </div>
+        </section>
+
+        <section id="servicios" class="seccion-servicios reveal">
+            <h2> Servicios Ciudadanos</h2>
+            <p>Accede a los principales servicios que ofrece el COPACI:</p>
+
+            <div class="buscador-servicios">
+                <input type="text" id="buscadorServicios" placeholder="Buscar servicio..." aria-label="Buscar servicio">
+            </div>
+
+            <ul class="lista-servicios" id="listaServicios">
+                <li class="servicio-card" data-tipo="reporte" data-servicio="reporte incidencias alumbrado bacheo basura seguridad queja problema">
+                    <div class="servicio-badge">Urgente</div>
+                    <div class="servicio-icono"> </div>
+                    <h3>Reporte de Incidencias</h3>
+                    <p>Registra problemas de alumbrado, bacheo, basura o seguridad en tu colonia.</p>
+                    <div class="servicio-acciones">
+                        <button class="btn-primario" data-accion="reporte">Reportar</button>
+                        <button class="btn-outline" data-accion="ver-reportes">Ver mis reportes</button>
+                    </div>
+                </li>
+
+                <li class="servicio-card" data-tipo="tramite" data-servicio="consulta tramites solicitudes documentos estatus">
+                    <div class="servicio-badge">Disponible</div>
+                    <div class="servicio-icono"> </div>
+                    <h3>Consulta de Trámites</h3>
+                    <p>Verifica el estatus de tus solicitudes y documentos.</p>
+                    <div class="servicio-acciones">
+                        <button class="btn-primario" data-accion="tramite">Consultar</button>
+                        <button class="btn-outline" data-accion="nuevo-tramite">Nuevo trámite</button>
+                    </div>
+                </li>
+
+                <li class="servicio-card" data-tipo="participacion" data-servicio="participacion vecinal asambleas comites trabajo comunitario">
+                    <div class="servicio-badge">Comunidad</div>
+                    <div class="servicio-icono"> </div>
+                    <h3>Participación Vecinal</h3>
+                    <p>Inscríbete en asambleas y comités de trabajo comunitario.</p>
+                    <div class="servicio-acciones">
+                        <button class="btn-primario" data-accion="participacion">Inscribirme</button>
+                        <button class="btn-outline" data-accion="ver-asambleas">Ver asambleas</button>
+                    </div>
+                </li>
+
+                <li class="servicio-card" data-tipo="transparencia" data-servicio="transparencia informes recursos comite presupuesto">
+                    <div class="servicio-badge">Actualizado</div>
+                    <div class="servicio-icono"> </div>
+                    <h3>Transparencia</h3>
+                    <p>Consulta los informes y recursos ejercidos por el comité.</p>
+                    <div class="servicio-acciones">
+                        <button class="btn-primario" data-accion="transparencia">Ver informes</button>
+                        <button class="btn-outline" data-accion="descargar-informe">Descargar PDF</button>
+                    </div>
+                </li>
+            </ul>
+
+            <p id="sinResultados" style="display:none; text-align:center; color: var(--color-texto-suave); margin-top: 15px;">No se encontraron servicios que coincidan con tu búsqueda.</p>
+
+            <div class="solo-admin-block" id="panelAdminServicios" style="margin-top:25px; padding:20px; background:var(--color-fondo-alt); border-radius:var(--radio-sm); border:2px dashed var(--color-acento);">
+                <h3 style="color:var(--color-acento-oscuro); margin-bottom:10px;"> Panel de Administración COPACI</h3>
+                <p style="color:var(--color-texto-suave); font-size:0.9rem; margin-bottom:15px;">Solo visible para administradores. Gestiona reportes, trámites y publicaciones.</p>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button class="btn-primario btn-sm" data-accion="admin-reportes"> Gestionar Reportes</button>
+                    <button class="btn-primario btn-sm" data-accion="admin-tramites"> Gestionar Trámites</button>
+                    <button class="btn-primario btn-sm" data-accion="admin-noticias"> Publicar Noticia</button>
+                    <button class="btn-primario btn-sm" data-accion="admin-usuarios"> Gestionar Usuarios</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="noticias" class="seccion-noticias reveal">
+            <div class="noticias-header">
+                <div>
+                    <h2> Noticias y Avisos</h2>
+                    <p class="noticias-subtitulo">Mantente informado sobre lo que sucede en tu comunidad</p>
+                </div>
+                <div class="noticias-acciones-top">
+                    <button class="btn-icono" id="btnSuscripcion" title="Suscribirse a avisos">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <span>Suscribirme</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="buscador-noticias">
+                <svg class="buscador-noticias-icono" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" id="buscadorNoticias" placeholder="Buscar noticias por título, categoría o contenido..." aria-label="Buscar noticias">
+                <button type="button" class="buscador-limpiar" id="limpiarBusquedaNoticias" aria-label="Limpiar búsqueda" style="display:none;">✕</button>
+            </div>
+
+            <div class="filtros-noticias">
+                <button class="filtro-noticia activo" data-categoria="todas"> Todas <span class="filtro-contador" id="contadorTodas">7</span></button>
+                <button class="filtro-noticia" data-categoria="comunidad"> Comunidad <span class="filtro-contador" id="contadorComunidad">2</span></button>
+                <button class="filtro-noticia" data-categoria="eventos"> Eventos <span class="filtro-contador" id="contadorEventos">2</span></button>
+                <button class="filtro-noticia" data-categoria="avisos"> Avisos <span class="filtro-contador" id="contadorAvisos">2</span></button>
+                <button class="filtro-noticia" data-categoria="servicios"> Servicios <span class="filtro-contador" id="contadorServicios">1</span></button>
+            </div>
+
+            <article class="noticia-destacada" data-categoria="comunidad" id="noticiaDestacada">
+                <div class="noticia-destacada-imagen">
+                    <div class="noticia-placeholder" style="background: linear-gradient(135deg, #a8dca0, #7cc576);"> </div>
+                    <span class="badge-destacada"> DESTACADA</span>
+                </div>
+                <div class="noticia-destacada-contenido">
+                    <div class="noticia-meta">
+                        <span class="noticia-categoria cat-comunidad"> Comunidad</span>
+                        <span> Hace 2 días</span>
+                        <span> 3 min lectura</span>
+                    </div>
+                    <h3>Asamblea General Ordinaria 2025</h3>
+                    <p class="noticia-extracto">Se convoca a todos los vecinos a la asamblea general que se llevará a cabo el próximo domingo en la plaza principal. Se tratarán temas importantes sobre el presupuesto anual y nuevos proyectos comunitarios.</p>
+                    <div class="noticia-footer">
+                        <div class="noticia-autor">
+                            <div class="autor-avatar">CM</div>
+                            <div>
+                                <strong>Comité COPACI</strong>
+                                <span class="autor-rol">Organizador</span>
+                            </div>
+                        </div>
+                        <button class="btn-leer" data-noticia="asamblea">Leer noticia completa →</button>
+                    </div>
+                </div>
+            </article>
+
+            <div class="grid-noticias" id="gridNoticias">
+                <article class="noticia-card" data-categoria="eventos">
+                    <div class="noticia-card-imagen">
+                        <div class="noticia-placeholder" style="background: linear-gradient(135deg, #d4f0cc, #7cc576);"> </div>
+                        <span class="badge-nueva"> NUEVA</span>
+                        <button class="btn-guardar" data-guardar="limpieza" title="Guardar">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                        </button>
+                    </div>
+                    <div class="noticia-card-contenido">
+                        <div class="noticia-meta">
+                            <span class="noticia-categoria cat-eventos"> Eventos</span>
+                            <span> Hace 3 días</span>
+                        </div>
+                        <h3>Jornada de Limpieza Comunitaria</h3>
+                        <p class="noticia-extracto">El comité organiza una jornada de limpieza en las áreas comunes. ¡Tu participación es fundamental!</p>
+                        <div class="noticia-card-footer">
+                            <div class="noticia-stats">
+                                <span> <span class="vistas">245</span></span>
+                                <button class="btn-megusta" data-megusta="limpieza"> <span class="contador-megusta">18</span></button>
+                            </div>
+                            <button class="btn-leer" data-noticia="limpieza">Leer más →</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="noticia-card" data-categoria="avisos">
+                    <div class="noticia-card-imagen">
+                        <div class="noticia-placeholder" style="background: linear-gradient(135deg, #a8dca0, #5da557);"> </div>
+                        <span class="badge-urgente"> IMPORTANTE</span>
+                        <button class="btn-guardar" data-guardar="apoyos" title="Guardar">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                        </button>
+                    </div>
+                    <div class="noticia-card-contenido">
+                        <div class="noticia-meta">
+                            <span class="noticia-categoria cat-avisos"> Avisos</span>
+                            <span> Hace 5 días</span>
+                        </div>
+                        <h3>Entrega de Apoyos Alimentarios</h3>
+                        <p class="noticia-extracto">Se informa a la comunidad sobre la próxima entrega de apoyos en las oficinas del COPACI.</p>
+                        <div class="noticia-card-footer">
+                            <div class="noticia-stats">
+                                <span> <span class="vistas">512</span></span>
+                                <button class="btn-megusta" data-megusta="apoyos"> <span class="contador-megusta">42</span></button>
+                            </div>
+                            <button class="btn-leer" data-noticia="apoyos">Leer más →</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="noticia-card" data-categoria="servicios">
+                    <div class="noticia-card-imagen">
+                        <div class="noticia-placeholder" style="background: linear-gradient(135deg, #d4f0cc, #8bc98b);"> </div>
+                        <button class="btn-guardar" data-guardar="alumbrado" title="Guardar">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                        </button>
+                    </div>
+                    <div class="noticia-card-contenido">
+                        <div class="noticia-meta">
+                            <span class="noticia-categoria cat-servicios"> Servicios</span>
+                            <span> Hace 1 semana</span>
+                        </div>
+                        <h3>Mantenimiento de Alumbrado Público</h3>
+                        <p class="noticia-extracto">Personal del municipio realizará trabajos de mantenimiento en el sistema de alumbrado.</p>
+                        <div class="noticia-card-footer">
+                            <div class="noticia-stats">
+                                <span> <span class="vistas">178</span></span>
+                                <button class="btn-megusta" data-megusta="alumbrado"> <span class="contador-megusta">9</span></button>
+                            </div>
+                            <button class="btn-leer" data-noticia="alumbrado">Leer más →</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="noticia-card" data-categoria="eventos">
+                    <div class="noticia-card-imagen">
+                        <div class="noticia-placeholder" style="background: linear-gradient(135deg, #d4f0cc, #7cc576);"> </div>
+                        <span class="badge-nueva"> NUEVA</span>
+                        <button class="btn-guardar" data-guardar="taller" title="Guardar">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                        </button>
+                    </div>
+                    <div class="noticia-card-contenido">
+                        <div class="noticia-meta">
+                            <span class="noticia-categoria cat-eventos"> Eventos</span>
+                            <span> Hace 4 días</span>
+                        </div>
+                        <h3>Taller de Huertos Urbanos</h3>
+                        <p class="noticia-extracto">Aprende a cultivar tus propios alimentos en casa. Taller gratuito con materiales incluidos.</p>
+                        <div class="noticia-card-footer">
+                            <div class="noticia-stats">
+                                <span> <span class="vistas">320</span></span>
+                                <button class="btn-megusta" data-megusta="taller"> <span class="contador-megusta">67</span></button>
+                            </div>
+                            <button class="btn-leer" data-noticia="taller">Leer más →</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="noticia-card" data-categoria="avisos">
+                    <div class="noticia-card-imagen">
+                        <div class="noticia-placeholder" style="background: linear-gradient(135deg, #7cc576, #5da557);"> </div>
+                        <span class="badge-urgente"> URGENTE</span>
+                        <button class="btn-guardar" data-guardar="agua" title="Guardar">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                        </button>
+                    </div>
+                    <div class="noticia-card-contenido">
+                        <div class="noticia-meta">
+                            <span class="noticia-categoria cat-avisos"> Avisos</span>
+                            <span> Hoy</span>
+                        </div>
+                        <h3>Suspensión Temporal del Servicio de Agua</h3>
+                        <p class="noticia-extracto">El suministro de agua se verá interrumpido el próximo martes de 8:00 a 14:00 hrs.</p>
+                        <div class="noticia-card-footer">
+                            <div class="noticia-stats">
+                                <span> <span class="vistas">891</span></span>
+                                <button class="btn-megusta" data-megusta="agua"> <span class="contador-megusta">103</span></button>
+                            </div>
+                            <button class="btn-leer" data-noticia="agua">Leer más →</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="noticia-card" data-categoria="comunidad">
+                    <div class="noticia-card-imagen">
+                        <div class="noticia-placeholder" style="background: linear-gradient(135deg, #a8dca0, #b3e3a8);"> </div>
+                        <button class="btn-guardar" data-guardar="comite" title="Guardar">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                        </button>
+                    </div>
+                    <div class="noticia-card-contenido">
+                        <div class="noticia-meta">
+                            <span class="noticia-categoria cat-comunidad"> Comunidad</span>
+                            <span> Hace 2 semanas</span>
+                        </div>
+                        <h3>Nuevos Integrantes del Comité Vecinal</h3>
+                        <p class="noticia-extracto">Se presentan los nuevos integrantes del comité vecinal que trabajarán durante el periodo 2025-2026.</p>
+                        <div class="noticia-card-footer">
+                            <div class="noticia-stats">
+                                <span> <span class="vistas">156</span></span>
+                                <button class="btn-megusta" data-megusta="comite"> <span class="contador-megusta">28</span></button>
+                            </div>
+                            <button class="btn-leer" data-noticia="comite">Leer más →</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div id="sinResultadosNoticias" class="sin-resultados-noticias" style="display:none;">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+                <h3>No encontramos noticias</h3>
+                <p>Intenta con otras palabras clave o cambia de categoría.</p>
+                <button class="btn-outline" id="resetBusquedaNoticias">Ver todas las noticias</button>
+            </div>
+
+            <div class="noticias-footer">
+                <p class="noticias-contador" id="contadorNoticias">Mostrando 7 de 7 noticias</p>
+                <button class="btn-outline" id="btnCargarMas"> Cargar más noticias</button>
+            </div>
+        </section>
+
+        <aside class="barra-lateral reveal" id="contacto">
+            <h2> Información de Contacto</h2>
+
+            <h3> Oficinas COPACI</h3>
+            <p style="color: var(--color-texto-suave);">Calle Principal #123, Granjas Guadalupe</p>
+
+            <h3> Horario de Atención</h3>
+            <ol class="horario">
+                <li>Lunes a Viernes: 9:00 - 18:00 hrs</li>
+                <li>Sábados: 9:00 - 14:00 hrs</li>
+                <li>Domingos: Cerrado</li>
+            </ol>
+            <div id="estadoOficina"></div>
+
+            <h3> Teléfonos</h3>
+            <ul class="telefonos">
+                <li>Tel: (55) 1234-5678</li>
+                <li>WhatsApp: (55) 8765-4321</li>
+            </ul>
+
+            <button type="button" class="btn-secundario" id="btnContacto"> Enviar mensaje</button>
+        </aside>
+
+    </main>
+
+    <footer class="pie-pagina">
+        <div class="contenedor-footer">
+            <p>&copy; 2025 COPACI Granjas Guadalupe. Todos los derechos reservados.</p>
+            <p style="opacity:0.7; font-size:0.9rem;">Sistema desarrollado como proyecto académico.</p>
+            <p style="opacity:0.95; font-size:1rem; margin-top:10px; font-weight:700; color:#52b788; letter-spacing:0.5px;">Delgado Antonino Carlos Gabriel</p>
+
+            <ul class="enlaces-footer">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <button class="btn-top" id="btnTop" aria-label="Volver arriba">↑</button>
+
+    <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+        <div class="modal" id="modalContenido"></div>
+    </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script>
+        'use strict';
+
+        const IMAGEN_CANELITA_URL = 'cn.jpg';
+        const PALABRA_SECRETA = 'canelita';
+
+        let bufferTeclado = '';
+        let canelitaMostrada = false;
+
+        function verificarPalabraSecreta(e) {
+            const tag = (e.target.tagName || '').toLowerCase();
+            if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+
+            if (e.key && e.key.length === 1) {
+                bufferTeclado = (bufferTeclado + e.key.toLowerCase()).slice(-PALABRA_SECRETA.length);
+                if (bufferTeclado === PALABRA_SECRETA && !canelitaMostrada) {
+                    mostrarCanelita();
+                }
+            }
+        }
+
+        function mostrarCanelita() {
+            canelitaMostrada = true;
+            abrirModal(`
+                <button class="modal-cerrar">✕</button>
+                <div class="exito-container" style="padding: 10px 0;">
+                    <h2 style="text-align:center; margin-bottom: 20px;">¡Encontraste a Canelita!</h2>
+                    <div style="display:flex; justify-content:center;">
+                        <img src="${IMAGEN_CANELITA_URL}" alt="Canelita" style="max-width:100%; max-height:60vh; border-radius:var(--radio-sm); box-shadow:var(--sombra-lg);">
+                    </div>
+                    <p style="text-align:center; color: var(--color-texto-suave); margin-top: 15px; font-size: 0.9rem;">Easter egg desbloqueado</p>
+                </div>
+            `);
+            mostrarToast('exito', ' ¡Canelita apareció!', 'Has desbloqueado el easter egg');
+            setTimeout(() => { canelitaMostrada = false; }, 3000);
+        }
+
+        document.addEventListener('keydown', verificarPalabraSecreta);
+
+        const $ = (s, c = document) => c.querySelector(s);
+        const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+        const USUARIOS = {
+            'admin': { password: 'admin123', rol: 'admin', nombre: 'Administrador COPACI' },
+            'vecino': { password: 'vecino123', rol: 'usuario', nombre: 'Vecino de la Colonia' }
+        };
+
+        let sesionActual = null;
+
+        function cargarSesion() {
+            try {
+                const datos = localStorage.getItem('sesionCOPACI');
+                if (datos) {
+                    sesionActual = JSON.parse(datos);
+                }
+            } catch(e) { sesionActual = null; }
+            aplicarRolUI();
+        }
+
+        function guardarSesion(usuario) {
+            sesionActual = usuario;
+            localStorage.setItem('sesionCOPACI', JSON.stringify(usuario));
+            aplicarRolUI();
+            mostrarToast('exito', ' Sesión iniciada', 'Bienvenido ' + usuario.nombre + ' (' + (usuario.rol === 'admin' ? 'Administrador' : 'Usuario') + ')');
+        }
+
+        function cerrarSesion() {
+            sesionActual = null;
+            localStorage.removeItem('sesionCOPACI');
+            aplicarRolUI();
+            mostrarToast('info', ' Sesión cerrada', 'Has salido del sistema. Ahora navegas como invitado.');
+        }
+
+        function aplicarRolUI() {
+            const estaLogueado = !!sesionActual;
+            const esAdmin = estaLogueado && sesionActual.rol === 'admin';
+
+            const banner = $('#bannerSesion');
+            if (banner) banner.style.display = estaLogueado ? 'none' : 'block';
+
+            const infoUsuario = $('#infoUsuario');
+            const badgeRol = $('#badgeRol');
+            const btnLoginNav = $('#btnLoginNav');
+
+            if (infoUsuario) infoUsuario.style.display = estaLogueado ? 'flex' : 'none';
+            if (btnLoginNav) btnLoginNav.style.display = estaLogueado ? 'none' : 'inline-flex';
+            if (badgeRol && estaLogueado) {
+                badgeRol.textContent = sesionActual.rol === 'admin' ? ' Admin COPACI' : ' Usuario';
+                badgeRol.className = 'badge-rol ' + (esAdmin ? 'admin' : 'usuario');
+            }
+
+            document.body.classList.toggle('admin-mode', esAdmin);
+
+            document.querySelectorAll('[data-accion]').forEach(btn => {
+                const accion = btn.dataset.accion;
+                const accionesAdmin = ['admin-reportes', 'admin-tramites', 'admin-noticias', 'admin-usuarios'];
+                const accionesPublicas = ['transparencia', 'descargar-informe', 'ver-reportes', 'tramite', 'ver-asambleas'];
+
+                if (accionesAdmin.includes(accion)) {
+                    btn.style.display = esAdmin ? 'inline-flex' : 'none';
+                }
+
+                if (!estaLogueado && !accionesPublicas.includes(accion)) {
+                    btn.classList.add('btn-bloqueado');
+                    btn.title = 'Inicia sesión para usar esta función';
+                } else {
+                    btn.classList.remove('btn-bloqueado');
+                    btn.title = '';
+                }
+            });
+
+            document.querySelectorAll('.btn-guardar, .btn-megusta').forEach(btn => {
+                if (!estaLogueado) {
+                    btn.classList.add('btn-bloqueado');
+                    btn.title = 'Inicia sesión para interactuar';
+                } else {
+                    btn.classList.remove('btn-bloqueado');
+                    btn.title = '';
+                }
+            });
+        }
+
+        function requiereSesion(mensaje = 'Esta función requiere una cuenta') {
+            if (!sesionActual) {
+                mostrarToast('advertencia', ' Inicia sesión', mensaje);
+                abrirLogin();
+                return false;
+            }
+            return true;
+        }
+
+        function abrirLogin() {
+            abrirModal(`
+                <button class="modal-cerrar">✕</button>
+                <div class="login-header">
+                    <div class="logo-login"> </div>
+                    <h2>Iniciar Sesión</h2>
+                    <p>Sistema de Gestión Ciudadana - COPACI Granjas Guadalupe</p>
+                </div>
+                <form id="formLogin" novalidate>
+                    <div class="campo">
+                        <label for="loginUsuario">Usuario *</label>
+                        <input type="text" id="loginUsuario" placeholder="admin o vecino" autocomplete="username" required>
+                        <span class="mensaje-error" id="errorLoginUsuario">Ingresa tu usuario</span>
+                    </div>
+                    <div class="campo">
+                        <label for="loginPassword">Contraseña *</label>
+                        <input type="password" id="loginPassword" placeholder="••••••" autocomplete="current-password" required>
+                        <span class="mensaje-error" id="errorLoginPassword">Ingresa tu contraseña</span>
+                    </div>
+                    <button type="submit" class="btn-primario" style="width:100%; justify-content:center;"> Iniciar Sesión</button>
+                </form>
+                <div class="login-ayuda">
+                    <strong> Credenciales de prueba:</strong>
+                    <div class="credenciales-demo">
+                        <span> Admin COPACI: <code>admin</code> / <code>admin123</code></span>
+                        <span> Usuario vecino: <code>vecino</code> / <code>vecino123</code></span>
+                    </div>
+                </div>
+            `);
+
+            const form = $('#formLogin');
+            form?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const usuario = $('#loginUsuario').value.trim().toLowerCase();
+                const password = $('#loginPassword').value;
+                let valido = true;
+
+                if (!usuario) { $('#loginUsuario').classList.add('error'); $('#errorLoginUsuario').classList.add('visible'); valido = false; }
+                else { $('#loginUsuario').classList.remove('error'); $('#errorLoginUsuario').classList.remove('visible'); }
+                if (!password) { $('#loginPassword').classList.add('error'); $('#errorLoginPassword').classList.add('visible'); valido = false; }
+                else { $('#loginPassword').classList.remove('error'); $('#errorLoginPassword').classList.remove('visible'); }
+
+                if (!valido) return;
+
+                const user = USUARIOS[usuario];
+                if (!user || user.password !== password) {
+                    mostrarToast('error', ' Acceso denegado', 'Usuario o contraseña incorrectos');
+                    return;
+                }
+
+                const btn = form.querySelector('button[type="submit"]');
+                btn.innerHTML = ' Verificando...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    cerrarModal();
+                    guardarSesion({ usuario, rol: user.rol, nombre: user.nombre });
+                }, 800);
+            });
+        }
+
+        function actualizarFechaHora() {
+            try {
+                const ahora = new Date();
+                const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                const f = ahora.toLocaleDateString('es-MX', opciones);
+                const el = $('#fechaHora');
+                if (el) el.textContent = ' ' + f.charAt(0).toUpperCase() + f.slice(1);
+            } catch(e) {}
+        }
+        actualizarFechaHora();
+        setInterval(actualizarFechaHora, 60000);
+
+        function crearParticulas() {
+            try {
+                const cont = $('#particulas');
+                if (!cont) return;
+                for (let i = 0; i < 20; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'particula';
+                    p.style.left = Math.random() * 100 + '%';
+                    p.style.top = Math.random() * 100 + '%';
+                    p.style.animationDelay = Math.random() * 12 + 's';
+                    p.style.animationDuration = (8 + Math.random() * 8) + 's';
+                    p.style.width = p.style.height = (3 + Math.random() * 6) + 'px';
+                    cont.appendChild(p);
+                }
+            } catch(e) {}
+        }
+        crearParticulas();
+
+        const btnTema = $('#btnTema');
+        const temaGuardado = localStorage.getItem('temaCOPACI') || 'claro';
+
+        if (temaGuardado === 'oscuro') {
+            document.body.classList.add('tema-oscuro');
+            if (btnTema) btnTema.textContent = '☀️';
+        }
+
+        btnTema?.addEventListener('click', () => {
+            document.body.classList.toggle('tema-oscuro');
+            const esOscuro = document.body.classList.contains('tema-oscuro');
+            btnTema.textContent = esOscuro ? '☀️' : '🌙';
+            localStorage.setItem('temaCOPACI', esOscuro ? 'oscuro' : 'claro');
+            mostrarToast('info', ' Tema cambiado', 'Modo ' + (esOscuro ? 'oscuro' : 'claro') + ' activado');
+        });
+
+        const btnHamburguesa = $('#btnHamburguesa');
+        const menu = $('#menu');
+
+        btnHamburguesa?.addEventListener('click', () => {
+            const abierto = menu.classList.toggle('abierto');
+            btnHamburguesa.setAttribute('aria-expanded', abierto);
+            btnHamburguesa.textContent = abierto ? '✕' : '☰';
+        });
+
+        $$('.menu a').forEach(enlace => {
+            enlace.addEventListener('click', () => {
+                menu.classList.remove('abierto');
+                if (btnHamburguesa) {
+                    btnHamburguesa.setAttribute('aria-expanded', 'false');
+                    btnHamburguesa.textContent = '☰';
+                }
+            });
+        });
+
+        const barraProgreso = $('#barraProgreso');
+        const btnTop = $('#btnTop');
+
+        window.addEventListener('scroll', () => {
+            const st = window.scrollY;
+            const dh = document.documentElement.scrollHeight - window.innerHeight;
+            const p = dh > 0 ? (st / dh) * 100 : 0;
+            if (barraProgreso) barraProgreso.style.width = p + '%';
+            if (btnTop) btnTop.classList.toggle('visible', st > 400);
+            actualizarNavActivo();
+        }, { passive: true });
+
+        btnTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        function actualizarNavActivo() {
+            const secciones = ['inicio', 'servicios', 'noticias', 'contacto'];
+            const sp = window.scrollY + 120;
+            for (const id of secciones) {
+                const sec = document.getElementById(id);
+                if (!sec) continue;
+                const top = sec.offsetTop;
+                const bottom = top + sec.offsetHeight;
+                if (sp >= top && sp < bottom) {
+                    $$('.menu a').forEach(a => a.classList.remove('activo'));
+                    const e = $(`.menu a[href="#${id}"]`);
+                    if (e) e.classList.add('activo');
+                    break;
+                }
+            }
+        }
+
+        const observer = new IntersectionObserver((ents) => {
+            ents.forEach(en => {
+                if (en.isIntersecting) {
+                    en.target.classList.add('visible');
+                    if (en.target.id === 'inicio') iniciarContadores();
+                    observer.unobserve(en.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        $$('.reveal').forEach(el => observer.observe(el));
+
+        let contadoresIniciados = false;
+
+        function iniciarContadores() {
+            if (contadoresIniciados) return;
+            contadoresIniciados = true;
+            $$('[data-contador]').forEach(el => {
+                const obj = parseInt(el.dataset.contador, 10);
+                const pasos = 60;
+                const inc = obj / pasos;
+                let actual = 0, paso = 0;
+                const t = setInterval(() => {
+                    paso++;
+                    actual += inc;
+                    if (paso >= pasos) { actual = obj; clearInterval(t); }
+                    el.textContent = Math.floor(actual).toLocaleString('es-MX') + (obj === 98 ? '%' : '+');
+                }, 2000 / pasos);
+            });
+        }
+
+        function mostrarToast(tipo, titulo, mensaje, duracion = 4000) {
+            try {
+                const cont = $('#toastContainer');
+                if (!cont) return;
+                const iconos = { exito: ' ', error: ' ', info: ' ', advertencia: ' ' };
+                const toast = document.createElement('div');
+                toast.className = 'toast ' + tipo;
+                toast.innerHTML = `<span class="icono">${iconos[tipo] || ' '}</span><div class="contenido-toast"><div class="titulo-toast">${titulo}</div><div class="mensaje-toast">${mensaje}</div></div>`;
+                cont.appendChild(toast);
+                setTimeout(() => {
+                    toast.classList.add('saliendo');
+                    setTimeout(() => toast.remove(), 300);
+                }, duracion);
+            } catch(e) {}
+        }
+
+        const modalOverlay = $('#modalOverlay');
+        const modalContenido = $('#modalContenido');
+
+        function abrirModal(html) {
+            if (!modalOverlay || !modalContenido) return;
+            modalContenido.innerHTML = html;
+            modalOverlay.classList.add('activo');
+            document.body.style.overflow = 'hidden';
+            const btnCerrar = $('.modal-cerrar', modalContenido);
+            btnCerrar?.addEventListener('click', cerrarModal);
+            setTimeout(() => {
+                const pi = $('input, select, textarea, button', modalContenido);
+                pi?.focus();
+            }, 100);
+        }
+
+        function cerrarModal() {
+            if (!modalOverlay) return;
+            modalOverlay.classList.remove('activo');
+            document.body.style.overflow = '';
+        }
+
+        modalOverlay?.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) cerrarModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay?.classList.contains('activo')) cerrarModal();
+        });
+
+        const buscadorServicios = $('#buscadorServicios');
+        const sinResultados = $('#sinResultados');
+
+        buscadorServicios?.addEventListener('input', (e) => {
+            const t = e.target.value.toLowerCase().trim();
+            const items = $$('#listaServicios .servicio-card');
+            let v = 0;
+            items.forEach(item => {
+                const c = (item.dataset.servicio + ' ' + item.textContent).toLowerCase();
+                const coincide = c.includes(t);
+                item.classList.toggle('oculto', !coincide);
+                if (coincide) v++;
+            });
+            if (sinResultados) sinResultados.style.display = v === 0 ? 'block' : 'none';
+        });
+
+        function obtenerReportes() {
+            try { return JSON.parse(localStorage.getItem('reportesCOPACI') || '[]'); }
+            catch(e) { return []; }
+        }
+
+        function guardarReporte(r) {
+            const rs = obtenerReportes();
+            rs.push(r);
+            localStorage.setItem('reportesCOPACI', JSON.stringify(rs));
+        }
+
+        function generarFolio(p) {
+            const f = new Date();
+            const a = f.getFullYear().toString().slice(-2);
+            const m = String(f.getMonth() + 1).padStart(2, '0');
+            const r = Math.floor(Math.random() * 9000 + 1000);
+            return `${p}-${a}${m}-${r}`;
+        }
+
+        function abrirFormularioReporte() {
+            if (!requiereSesion('Necesitas una cuenta para reportar incidencias')) return;
+            
+            abrirModal(`
+                <button class="modal-cerrar" aria-label="Cerrar">✕</button>
+                <h2> Nuevo Reporte de Incidencia</h2>
+                <form id="formReporte" novalidate>
+                    <div class="campo">
+                        <label for="nombreReporte">Nombre completo *</label>
+                        <input type="text" id="nombreReporte" placeholder="Ej: María González" required>
+                        <span class="mensaje-error" id="errorNombre">Por favor ingresa tu nombre</span>
+                    </div>
+                    <div class="campo">
+                        <label for="telefonoReporte">Teléfono de contacto *</label>
+                        <input type="tel" id="telefonoReporte" placeholder="Ej: 5512345678" required>
+                        <span class="mensaje-error" id="errorTelefono">Ingresa un teléfono válido (10 dígitos)</span>
+                    </div>
+                    <div class="campo">
+                        <label for="tipoReporte">Tipo de incidencia *</label>
+                        <select id="tipoReporte" required>
+                            <option value="">-- Selecciona una opción --</option>
+                            <option value="alumbrado"> Alumbrado público</option>
+                            <option value="bacheo"> Bacheo / Pavimento</option>
+                            <option value="basura"> Recolección de basura</option>
+                            <option value="seguridad"> Seguridad pública</option>
+                            <option value="agua"> Agua potable / Drenaje</option>
+                            <option value="otro"> Otro</option>
+                        </select>
+                        <span class="mensaje-error" id="errorTipo">Selecciona un tipo</span>
+                    </div>
+                    <div class="campo-doble">
+                        <div class="campo">
+                            <label for="prioridadReporte">Prioridad *</label>
+                            <select id="prioridadReporte" required>
+                                <option value="baja"> Baja</option>
+                                <option value="media" selected> Media</option>
+                                <option value="alta"> Alta</option>
+                                <option value="urgente"> Urgente</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="ubicacionReporte">Ubicación *</label>
+                            <input type="text" id="ubicacionReporte" placeholder="Calle y número" required>
+                            <span class="mensaje-error" id="errorUbicacion">Ingresa la ubicación</span>
+                        </div>
+                    </div>
+                    <div class="campo">
+                        <label for="descripcionReporte">Descripción del problema *</label>
+                        <textarea id="descripcionReporte" placeholder="Describe con detalle..." required minlength="20"></textarea>
+                        <span class="mensaje-error" id="errorDescripcion">Mínimo 20 caracteres</span>
+                    </div>
+                    <button type="submit" class="btn-primario" style="width:100%; justify-content:center;"> Enviar Reporte</button>
+                </form>
+            `);
+
+            const form = $('#formReporte');
+            form?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const nombre = $('#nombreReporte').value.trim();
+                const telefono = $('#telefonoReporte').value.replace(/\D/g, '');
+                const tipo = $('#tipoReporte').value;
+                const prioridad = $('#prioridadReporte').value;
+                const ubicacion = $('#ubicacionReporte').value.trim();
+                const descripcion = $('#descripcionReporte').value.trim();
+                let valido = true;
+
+                const validar = (id, eid, cond) => {
+                    const el = $(id), er = $(eid);
+                    if (cond) { el?.classList.remove('error'); er?.classList.remove('visible'); }
+                    else { el?.classList.add('error'); er?.classList.add('visible'); valido = false; }
+                };
+
+                validar('#nombreReporte', '#errorNombre', nombre.length >= 2);
+                validar('#telefonoReporte', '#errorTelefono', /^\d{10}$/.test(telefono));
+                validar('#tipoReporte', '#errorTipo', tipo !== '');
+                validar('#ubicacionReporte', '#errorUbicacion', ubicacion.length >= 3);
+                validar('#descripcionReporte', '#errorDescripcion', descripcion.length >= 20);
+
+                if (!valido) {
+                    mostrarToast('error', ' Formulario incompleto', 'Revisa los campos marcados');
+                    return;
+                }
+
+                const folio = generarFolio('REP');
+                guardarReporte({ folio, nombre, telefono, tipo, prioridad, ubicacion, descripcion, fecha: new Date().toISOString(), estado: 'En proceso' });
+
+                const btn = form.querySelector('button[type="submit"]');
+                btn.innerHTML = ' Enviando...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    abrirModal(`
+                        <button class="modal-cerrar">✕</button>
+                        <div class="exito-container">
+                            <div class="exito-icono"> </div>
+                            <h2>¡Reporte registrado!</h2>
+                            <p style="color: var(--color-texto-suave); margin-bottom: 15px;">Tu reporte ha sido enviado. Guarda tu folio:</p>
+                            <div class="folio-destacado">${folio}</div>
+                            <p style="color: var(--color-texto-suave); font-size: 0.9rem; margin-bottom: 15px;">Respuesta en 24-48 horas.</p>
+                            <button class="btn-primario" onclick="cerrarModal()" style="justify-content:center;">Entendido</button>
+                        </div>
+                    `);
+                    mostrarToast('exito', ' Reporte enviado', 'Folio: ' + folio);
+                }, 1000);
+            });
+        }
+
+        function verMisReportes() {
+            if (!requiereSesion('Necesitas una cuenta para ver tus reportes')) return;
+            const rs = obtenerReportes();
+            if (rs.length === 0) {
+                abrirModal(`
+                    <button class="modal-cerrar">✕</button>
+                    <h2> Mis Reportes</h2>
+                    <div style="text-align:center; padding: 30px 0;">
+                        <div style="font-size: 3rem; margin-bottom: 15px;"> </div>
+                        <p style="color: var(--color-texto-suave);">Aún no has realizado ningún reporte.</p>
+                        <button class="btn-primario" onclick="cerrarModal(); abrirFormularioReporte();" style="margin-top: 15px;">Crear mi primer reporte</button>
+                    </div>
+                `);
+                return;
+            }
+
+            const html = rs.slice().reverse().map(r => {
+                const f = new Date(r.fecha).toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' });
+                const pc = { baja: ' ', media: ' ', alta: ' ', urgente: ' ' }[r.prioridad] || ' ';
+                return `<div class="tramite-item"><div class="tramite-header"><span class="tramite-folio">${r.folio}</span><span class="tramite-estado proceso">${r.estado}</span></div><p class="tramite-descripcion"><strong>${pc} ${r.tipo.charAt(0).toUpperCase() + r.tipo.slice(1)}</strong> · ${f}<br> ${r.ubicacion}</p><p style="color: var(--color-texto-suave); font-size: 0.88rem; margin-top: 8px;">${r.descripcion}</p></div>`;
+            }).join('');
+
+            abrirModal(`<button class="modal-cerrar">✕</button><h2> Mis Reportes (${rs.length})</h2><div style="max-height: 60vh; overflow-y: auto;">${html}</div><button class="btn-primario" onclick="cerrarModal(); abrirFormularioReporte();" style="width:100%; justify-content:center; margin-top:15px;"> Nuevo reporte</button>`);
+        }
+
+        function adminGestionarReportes() {
+            if (!sesionActual || sesionActual.rol !== 'admin') { mostrarToast('error', ' Acceso denegado', 'Solo administradores COPACI'); return; }
+            const rs = obtenerReportes();
+            if (rs.length === 0) {
+                abrirModal(`<button class="modal-cerrar">✕</button><h2> Panel Admin: Reportes</h2><p style="color: var(--color-texto-suave); text-align:center; padding:30px 0;">No hay reportes registrados aún.</p>`);
+                return;
+            }
+            const html = rs.slice().reverse().map((r) => {
+                const f = new Date(r.fecha).toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' });
+                const pc = { baja: ' ', media: ' ', alta: ' ', urgente: ' ' }[r.prioridad] || ' ';
+                return `<div class="tramite-item"><div class="tramite-header"><span class="tramite-folio">${r.folio}</span><span class="tramite-estado proceso">${r.estado}</span></div><p class="tramite-descripcion"><strong>${pc} ${r.tipo}</strong> · ${f} · ${r.nombre}<br> ${r.ubicacion}<br> ${r.telefono}</p><p style="color: var(--color-texto-suave); font-size: 0.88rem;">${r.descripcion}</p></div>`;
+            }).join('');
+            abrirModal(`<button class="modal-cerrar">✕</button><h2> Panel Admin: Reportes (${rs.length})</h2><div style="max-height: 60vh; overflow-y: auto;">${html}</div>`);
+        }
+
+        function adminGestionarTramites() {
+            if (!sesionActual || sesionActual.rol !== 'admin') { mostrarToast('error', ' Acceso denegado', 'Solo administradores COPACI'); return; }
+            mostrarToast('info', ' Panel Admin', 'Módulo de trámites en desarrollo');
+        }
+
+        function adminPublicarNoticia() {
+            if (!sesionActual || sesionActual.rol !== 'admin') { mostrarToast('error', ' Acceso denegado', 'Solo administradores COPACI'); return; }
+            abrirModal(`
+                <button class="modal-cerrar">✕</button>
+                <h2> Publicar Nueva Noticia</h2>
+                <form id="formPublicarNoticia" novalidate>
+                    <div class="campo">
+                        <label for="tituloNoticia">Título *</label>
+                        <input type="text" id="tituloNoticia" placeholder="Título de la noticia" required>
+                    </div>
+                    <div class="campo">
+                        <label for="categoriaNoticia">Categoría *</label>
+                        <select id="categoriaNoticia" required>
+                            <option value="comunidad"> Comunidad</option>
+                            <option value="eventos"> Eventos</option>
+                            <option value="avisos"> Avisos</option>
+                            <option value="servicios"> Servicios</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="contenidoNoticia">Contenido *</label>
+                        <textarea id="contenidoNoticia" placeholder="Escribe el contenido de la noticia..." required minlength="30" style="min-height:150px;"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primario" style="width:100%; justify-content:center;"> Publicar Noticia</button>
+                </form>
+            `);
+            const form = $('#formPublicarNoticia');
+            form?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const titulo = $('#tituloNoticia').value.trim();
+                const categoria = $('#categoriaNoticia').value;
+                const contenido = $('#contenidoNoticia').value.trim();
+                if (titulo.length < 5 || contenido.length < 30) {
+                    mostrarToast('error', ' Campos incompletos', 'Revisa título y contenido');
+                    return;
+                }
+                const btn = form.querySelector('button[type="submit"]');
+                btn.innerHTML = ' Publicando...';
+                btn.disabled = true;
+                setTimeout(() => {
+                    cerrarModal();
+                    mostrarToast('exito', ' Noticia publicada', 'Título: ' + titulo);
+                }, 1000);
+            });
+        }
+
+        function adminGestionarUsuarios() {
+            if (!sesionActual || sesionActual.rol !== 'admin') { mostrarToast('error', ' Acceso denegado', 'Solo administradores COPACI'); return; }
+            const usuariosHTML = Object.entries(USUARIOS).map(([user, data]) => `
+                <div class="tramite-item">
+                    <div class="tramite-header">
+                        <span class="tramite-folio">${user}</span>
+                        <span class="tramite-estado ${data.rol === 'admin' ? 'listo' : 'proceso'}">${data.rol === 'admin' ? ' Admin' : ' Usuario'}</span>
+                    </div>
+                    <p class="tramite-descripcion">${data.nombre}</p>
+                </div>
+            `).join('');
+            abrirModal(`
+                <button class="modal-cerrar">✕</button>
+                <h2> Panel Admin: Usuarios</h2>
+                <p style="color: var(--color-texto-suave); margin-bottom:15px;">Usuarios registrados en el sistema:</p>
+                ${usuariosHTML}
+                <button class="btn-primario" style="width:100%; justify-content:center; margin-top:15px;" onclick="mostrarToast('info',' Nuevo usuario','Funcionalidad en desarrollo');"> Agregar Usuario</button>
+            `);
+        }
+
+        const tramitesEjemplo = [
+            { folio: 'TRA-2501-1234', tipo: 'Constancia de residencia', fecha: '2025-01-10', estado: 'listo', progreso: 100, descripcion: 'Documento listo para recoger.' },
+            { folio: 'TRA-2501-5678', tipo: 'Solicitud de apoyo alimentario', fecha: '2025-01-14', estado: 'proceso', progreso: 60, descripcion: 'En revisión por el comité.' },
+            { folio: 'TRA-2412-9012', tipo: 'Permiso para evento comunitario', fecha: '2024-12-20', estado: 'rechazado', progreso: 100, descripcion: 'Rechazado: falta documentación.' }
+        ];
+
+        function abrirConsultaTramites() {
+            abrirModal(`
+                <button class="modal-cerrar">✕</button>
+                <h2> Consulta de Trámites</h2>
+                <div class="campo">
+                    <label for="buscarFolio">Buscar por folio</label>
+                    <input type="text" id="buscarFolio" placeholder="Ej: TRA-2501-1234" style="text-transform: uppercase;">
+                </div>
+                <div id="resultadoTramites"></div>
+                <p style="color: var(--color-texto-suave); font-size: 0.85rem; margin-top: 15px; text-align: center;"> Prueba: <strong>TRA-2501-1234</strong>, <strong>TRA-2501-5678</strong> o <strong>TRA-2412-9012</strong></p>
+            `);
+
+            const input = $('#buscarFolio');
+            const res = $('#resultadoTramites');
+
+            const mostrar = (f = '') => {
+                const fu = f.toUpperCase().trim();
+                const fil = fu ? tramitesEjemplo.filter(t => t.folio.includes(fu) || t.tipo.toLowerCase().includes(f.toLowerCase())) : tramitesEjemplo;
+
+                if (fil.length === 0) {
+                    res.innerHTML = '<div style="text-align:center; padding: 20px; color: var(--color-texto-suave);"><p> No se encontraron trámites.</p></div>';
+                    return;
+                }
+
+                const lbl = { proceso: 'En proceso', listo: 'Listo', rechazado: 'Rechazado' };
+                res.innerHTML = fil.map(t => `<div class="tramite-item"><div class="tramite-header"><span class="tramite-folio">${t.folio}</span><span class="tramite-estado ${t.estado}">${lbl[t.estado]}</span></div><p class="tramite-descripcion"><strong>${t.tipo}</strong><br> ${new Date(t.fecha).toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })}</p><p style="color: var(--color-texto-suave); font-size: 0.88rem;">${t.descripcion}</p><div class="tramite-progreso"><div class="tramite-progreso-barra" style="width: ${t.progreso}%;"></div></div></div>`).join('');
+            };
+
+            mostrar();
+            input?.addEventListener('input', (e) => mostrar(e.target.value));
+        }
+
+        function abrirNuevoTramite() {
+            if (!requiereSesion('Necesitas una cuenta para crear trámites')) return;
+            abrirModal(`
+                <button class="modal-cerrar">✕</button>
+                <h2> Nuevo Trámite</h2>
+                <form id="formNuevoTramite" novalidate>
+                    <div class="campo">
+                        <label for="tipoTramite">Tipo de trámite *</label>
+                        <select id="tipoTramite" required>
+                            <option value="">-- Selecciona --</option>
+                            <option value="Constancia de residencia">Constancia de residencia</option>
+                            <option value="Solicitud de apoyo">Solicitud de apoyo</option>
+                            <option value="Permiso para evento">Permiso para evento</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="nombreTramite">Nombre del solicitante *</label>
+                        <input type="text" id="nombreTramite" placeholder="Tu nombre completo" required>
+                    </div>
+                    <div class="campo">
+                        <label for="detalleTramite">Detalle o motivo *</label>
+                        <textarea id="detalleTramite" placeholder="Describe el motivo..." required minlength="15"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primario" style="width:100%; justify-content:center;"> Enviar solicitud</button>
+                </form>
+            `);
+
+            const form = $('#formNuevoTramite');
+            form?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const tipo = $('#tipoTramite').value;
+                const nombre = $('#nombreTramite').value.trim();
+                const detalle = $('#detalleTramite').value.trim();
+
+                if (!tipo || nombre.length < 3 || detalle.length < 15) {
+                    mostrarToast('error', ' Formulario incompleto', 'Completa todos los campos');
+                    return;
+                }
+
+                const folio = generarFolio('TRA');
+                abrirModal(`
+                    <button class="modal-cerrar">✕</button>
+                    <div class="exito-container">
+                        <div class="exito-icono"> </div>
+                        <h2>¡Trámite registrado!</h2>
+                        <p style="color: var(--color-texto-suave); margin-bottom: 15px;">Guarda tu folio:</p>
+                        <div class="folio-destacado">${folio}</div>
+                        <p style="color: var(--color-texto-suave); font-size: 0.9rem;">Tiempo estimado: <strong>3-5 días hábiles</strong></p>
+                        <button class="btn-primario" onclick="cerrarModal();" style="justify-content:center; margin-top: 15px;">Entendido</button>
+                    </div>
+                `);
+                mostrarToast('exito', ' Trámite registrado', 'Folio: ' + folio);
+            });
+        }
+
+        const asambleas = [
+            { id: 'ASM-001', titulo: 'Asamblea General Ordinaria', fecha: 'Domingo 26 de enero, 2025', hora: '10:00 hrs', lugar: 'Plaza Principal', cupo: 120, inscritos: 87 },
+            { id: 'ASM-002', titulo: 'Comité de Seguridad Vecinal', fecha: 'Miércoles 29 de enero, 2025', hora: '18:00 hrs', lugar: 'Salón Comunitario', cupo: 40, inscritos: 40 },
+            { id: 'ASM-003', titulo: 'Comité de Obras y Mantenimiento', fecha: 'Sábado 1 de febrero, 2025', hora: '11:00 hrs', lugar: 'Oficinas COPACI', cupo: 25, inscritos: 12 }
+        ];
+
+        function obtenerInscripciones() {
+            try { return JSON.parse(localStorage.getItem('inscripcionesCOPACI') || '[]'); }
+            catch(e) { return []; }
+        }
+
+        function abrirParticipacionVecinal() {
+            const ins = obtenerInscripciones();
+            const html = asambleas.map(a => {
+                const lleno = a.inscritos >= a.cupo;
+                const ya = ins.includes(a.id);
+                const requiereCuenta = !sesionActual;
+                return `<div class="asamblea-item"><div class="asamblea-header"><span class="asamblea-titulo">${a.titulo}</span><span class="asamblea-cupo ${lleno ? 'lleno' : ''}">${a.inscritos}/${a.cupo} ${lleno ? '· LLENO' : ''}</span></div><div class="asamblea-info"><span> ${a.fecha}</span><span> ${a.hora}</span><span> ${a.lugar}</span></div><button class="btn-primario btn-sm ${requiereCuenta ? 'btn-bloqueado' : ''}" data-asamblea="${a.id}" ${lleno || ya ? 'disabled style="opacity:0.6; cursor:not-allowed; width:100%; justify-content:center;"' : 'style="width:100%; justify-content:center;"'}>${ya ? '✓ Ya inscrito' : (lleno ? ' Cupo lleno' : (requiereCuenta ? ' Inicia sesión' : ' Inscribirme'))}</button></div>`;
+            }).join('');
+
+            abrirModal(`<button class="modal-cerrar">✕</button><h2> Participación Vecinal</h2><p style="color: var(--color-texto-suave); margin-bottom: 20px;">${sesionActual ? 'Inscríbete en las próximas asambleas:' : 'Consulta las próximas asambleas. Para inscribirte, inicia sesión.'}</p><div>${html}</div>${ins.length > 0 ? `<p style="text-align:center; color: var(--color-secundario); margin-top: 15px; font-size: 0.9rem;">✓ Estás inscrito en ${ins.length} asamblea(s)</p>` : ''}`);
+
+            $$('[data-asamblea]').forEach(btn => {
+                btn.addEventListener('click', () => inscribirAsamblea(btn.dataset.asamblea));
+            });
+        }
+
+        function inscribirAsamblea(id) {
+            if (!requiereSesion('Necesitas una cuenta para inscribirte')) return;
+            const ins = obtenerInscripciones();
+            if (ins.includes(id)) { mostrarToast('advertencia', ' Ya inscrito', 'Ya estás registrado'); return; }
+
+            const a = asambleas.find(x => x.id === id);
+            if (!a) return;
+            if (a.inscritos >= a.cupo) { mostrarToast('error', ' Cupo lleno', 'Sin lugares disponibles'); return; }
+
+            ins.push(id);
+            localStorage.setItem('inscripcionesCOPACI', JSON.stringify(ins));
+            a.inscritos++;
+            mostrarToast('exito', ' Inscripción exitosa', 'Te has inscrito a: ' + a.titulo);
+            setTimeout(() => abrirParticipacionVecinal(), 500);
+        }
+
+        const recursos = {
+            '2024': [
+                { area: 'Obras públicas', monto: 285000, porcentaje: 45 },
+                { area: 'Seguridad', monto: 190000, porcentaje: 30 },
+                { area: 'Servicios generales', monto: 95000, porcentaje: 15 },
+                { area: 'Administración', monto: 63000, porcentaje: 10 }
+            ],
+            '2025': [
+                { area: 'Obras públicas', monto: 320000, porcentaje: 42 },
+                { area: 'Seguridad', monto: 240000, porcentaje: 32 },
+                { area: 'Servicios generales', monto: 120000, porcentaje: 16 },
+                { area: 'Administración', monto: 75000, porcentaje: 10 }
+            ]
+        };
+
+        function abrirTransparencia(año = '2025') {
+            const datos = recursos[año];
+            const total = datos.reduce((s, r) => s + r.monto, 0);
+
+            const rHTML = datos.map(r => `<div class="barra-recurso"><div class="barra-recurso-label"><span>${r.area}</span><span>$${r.monto.toLocaleString('es-MX')} (${r.porcentaje}%)</span></div><div class="barra-recurso-track"><div class="barra-recurso-fill" style="width: 0%;" data-width="${r.porcentaje}%"></div></div></div>`).join('');
+            const resumen = datos.map(r => `<div class="recurso-item"><span class="monto">$${(r.monto / 1000).toFixed(0)}k</span><span class="area">${r.area}</span></div>`).join('');
+
+            abrirModal(`
+                <button class="modal-cerrar">✕</button>
+                <h2> Informe de Transparencia ${año}</h2>
+                <p style="color: var(--color-texto-suave); margin-bottom: 20px;">Recursos ejercidos durante el año ${año}.</p>
+                <div style="display:flex; gap:10px; margin-bottom:20px;">
+                    <button class="btn-outline btn-sm" onclick="abrirTransparencia('2024')" style="flex:1; justify-content:center; ${año === '2024' ? 'background:var(--color-primario); color:white;' : ''}">2024</button>
+                    <button class="btn-outline btn-sm" onclick="abrirTransparencia('2025')" style="flex:1; justify-content:center; ${año === '2025' ? 'background:var(--color-primario); color:white;' : ''}">2025</button>
+                </div>
+                <div class="transparencia-grid">${resumen}</div>
+                <p style="text-align:center; margin: 20px 0 15px; font-size: 1.05rem;"><strong>Total ejercido:</strong> <span style="color: var(--color-secundario); font-weight: 800;">$${total.toLocaleString('es-MX')} MXN</span></p>
+                <h3 style="color: var(--color-texto); margin-bottom: 15px; font-size: 1rem;">Desglose por área</h3>
+                ${rHTML}
+                <button class="btn-primario" style="width:100%; justify-content:center; margin-top:20px;" onclick="descargarInforme('${año}')"> Descargar informe PDF</button>
+            `);
+
+            setTimeout(() => {
+                $$('.barra-recurso-fill').forEach(b => { b.style.width = b.dataset.width; });
+            }, 200);
+        }
+
+        function descargarInforme(año) {
+            mostrarToast('info', ' Generando PDF', 'Preparando informe ' + año + '...');
+            setTimeout(() => mostrarToast('exito', ' Informe generado', 'PDF descargado correctamente (simulado)'), 1500);
+        }
+
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-accion]');
+            if (!btn) return;
+            if (btn.classList.contains('btn-bloqueado') && !sesionActual) return;
+            const accion = btn.dataset.accion;
+            switch (accion) {
+                case 'reporte': abrirFormularioReporte(); break;
+                case 'ver-reportes': verMisReportes(); break;
+                case 'tramite': abrirConsultaTramites(); break;
+                case 'nuevo-tramite': abrirNuevoTramite(); break;
+                case 'participacion':
+                case 'ver-asambleas': abrirParticipacionVecinal(); break;
+                case 'transparencia': abrirTransparencia('2025'); break;
+                case 'descargar-informe': descargarInforme('2025'); break;
+                case 'admin-reportes': adminGestionarReportes(); break;
+                case 'admin-tramites': adminGestionarTramites(); break;
+                case 'admin-noticias': adminPublicarNoticia(); break;
+                case 'admin-usuarios': adminGestionarUsuarios(); break;
+            }
+        });
+
+        const noticiasCompletas = {
+            asamblea: {
+                titulo: 'Asamblea General Ordinaria 2025',
+                categoria: 'comunidad',
+                categoriaLabel: ' Comunidad',
+                fecha: '15 de enero, 2025',
+                lectura: '3 min',
+                autor: 'Comité COPACI',
+                rolAutor: 'Organizador',
+                avatar: 'CM',
+                color: 'linear-gradient(135deg, #a8dca0, #7cc576)',
+                icono: ' ',
+                vistas: 1247,
+                contenido: `<p>Se convoca a todos los vecinos a participar en la <strong>Asamblea General Ordinaria</strong> el próximo domingo en la plaza principal.</p><h3 style="color: var(--color-primario); margin: 20px 0 10px; font-size: 1.1rem;"> Puntos a tratar</h3><ol><li>Informe de actividades</li><li>Estados financieros</li><li>Nuevos proyectos comunitarios</li><li>Elección de representantes</li><li>Asuntos generales</li></ol><blockquote> <strong>Importante:</strong> Tu participación es fundamental. Quórum mínimo: 50 vecinos.</blockquote><p><strong> Fecha:</strong> Domingo 26 de enero, 2025<br><strong> Hora:</strong> 10:00 hrs<br><strong> Lugar:</strong> Plaza Principal</p>`
+            },
+            limpieza: {
+                titulo: 'Jornada de Limpieza Comunitaria',
+                categoria: 'eventos',
+                categoriaLabel: ' Eventos',
+                fecha: '12 de enero, 2025',
+                lectura: '2 min',
+                autor: 'Comité de Medio Ambiente',
+                rolAutor: 'Organizador',
+                avatar: 'MA',
+                color: 'linear-gradient(135deg, #d4f0cc, #7cc576)',
+                icono: ' ',
+                vistas: 245,
+                contenido: `<p>El comité organiza una <strong>jornada de limpieza</strong> en las áreas comunes. ¡Tu participación es fundamental!</p><h3 style="color: var(--color-primario); margin: 20px 0 10px; font-size: 1.1rem;"> ¿Qué llevar?</h3><ul><li>Guantes de trabajo</li><li>Ropa cómoda y protector solar</li><li>Bolsas para residuos</li><li>Agua para hidratación</li></ul><blockquote> Se entregarán refrigerios y constancia de participación.</blockquote><p><strong> Fecha:</strong> Sábado 1 de febrero, 2025<br><strong> Hora:</strong> 8:00 hrs<br><strong> Lugar:</strong> Parque Central</p>`
+            },
+            apoyos: {
+                titulo: 'Entrega de Apoyos Alimentarios',
+                categoria: 'avisos',
+                categoriaLabel: ' Avisos',
+                fecha: '8 de enero, 2025',
+                lectura: '2 min',
+                autor: 'Coordinación de Programas',
+                rolAutor: 'Coordinador',
+                avatar: 'CP',
+                color: 'linear-gradient(135deg, #a8dca0, #5da557)',
+                icono: ' ',
+                vistas: 512,
+                contenido: `<p>Se informa a la comunidad sobre la próxima <strong>entrega de apoyos alimentarios</strong>.</p><h3 style="color: var(--color-primario); margin: 20px 0 10px; font-size: 1.1rem;"> Requisitos</h3><ul><li>INE original y copia</li><li>Comprobante de domicilio</li><li>Folio de registro previo</li></ul><blockquote> Si no tienes folio, solicítalo antes del 31 de enero.</blockquote><p><strong> Fechas:</strong> Del 3 al 7 de febrero, 2025<br><strong> Horario:</strong> 9:00 - 15:00 hrs</p>`
+            },
+            alumbrado: {
+                titulo: 'Mantenimiento de Alumbrado Público',
+                categoria: 'servicios',
+                categoriaLabel: ' Servicios',
+                fecha: '8 de enero, 2025',
+                lectura: '2 min',
+                autor: 'Servicios Municipales',
+                rolAutor: 'Área Técnica',
+                avatar: 'SM',
+                color: 'linear-gradient(135deg, #d4f0cc, #8bc98b)',
+                icono: ' ',
+                vistas: 178,
+                contenido: `<p>Personal del municipio realizará <strong>trabajos de mantenimiento</strong> en el alumbrado público.</p><h3 style="color: var(--color-primario); margin: 20px 0 10px; font-size: 1.1rem;"> Trabajos</h3><ul><li>Reemplazo de luminarias LED</li><li>Revisión de cableado</li><li>Poda de árboles</li><li>Reparación de postes</li></ul><blockquote> Podrían presentarse cortes temporales de energía.</blockquote><p><strong> Fechas:</strong> Del 20 al 25 de enero, 2025</p>`
+            },
+            taller: {
+                titulo: 'Taller de Huertos Urbanos',
+                categoria: 'eventos',
+                categoriaLabel: ' Eventos',
+                fecha: '11 de enero, 2025',
+                lectura: '3 min',
+                autor: 'Comité de Sustentabilidad',
+                rolAutor: 'Instructor',
+                avatar: 'CS',
+                color: 'linear-gradient(135deg, #d4f0cc, #7cc576)',
+                icono: ' ',
+                vistas: 320,
+                contenido: `<p>Aprende a <strong>cultivar tus propios alimentos en casa</strong>. Taller gratuito.</p><h3 style="color: var(--color-primario); margin: 20px 0 10px; font-size: 1.1rem;"> Temario</h3><ul><li>Introducción a agricultura urbana</li><li>Preparación de sustratos</li><li>Siembra de hortalizas</li><li>Compostaje casero</li></ul><blockquote> Se entregará kit de inicio a cada familia.</blockquote><p><strong> Fecha:</strong> Sábado 8 de febrero, 2025<br><strong> Hora:</strong> 10:00 - 13:00 hrs</p>`
+            },
+            agua: {
+                titulo: 'Suspensión Temporal del Servicio de Agua',
+                categoria: 'avisos',
+                categoriaLabel: ' Avisos',
+                fecha: '17 de enero, 2025',
+                lectura: '1 min',
+                autor: 'Sistema de Agua Potable',
+                rolAutor: 'Aviso Oficial',
+                avatar: 'SA',
+                color: 'linear-gradient(135deg, #7cc576, #5da557)',
+                icono: ' ',
+                vistas: 891,
+                contenido: `<p><strong>AVISO IMPORTANTE:</strong> El suministro de agua se verá interrumpido.</p><h3 style="color: var(--color-peligro); margin: 20px 0 10px; font-size: 1.1rem;"> Detalles</h3><ul><li><strong>Fecha:</strong> Martes 21 de enero, 2025</li><li><strong>Horario:</strong> 8:00 a 14:00 hrs</li><li><strong>Zonas:</strong> Toda la colonia</li></ul><blockquote> Almacena agua suficiente para tus necesidades.</blockquote><p>Para reportar emergencias: <strong>(55) 1234-5678</strong>.</p>`
+            },
+            comite: {
+                titulo: 'Nuevos Integrantes del Comité Vecinal',
+                categoria: 'comunidad',
+                categoriaLabel: ' Comunidad',
+                fecha: '3 de enero, 2025',
+                lectura: '2 min',
+                autor: 'Mesa Directiva',
+                rolAutor: 'Comunicado',
+                avatar: 'MD',
+                color: 'linear-gradient(135deg, #a8dca0, #b3e3a8)',
+                icono: ' ',
+                vistas: 156,
+                contenido: `<p>Se presentan los <strong>nuevos integrantes del comité vecinal</strong> 2025-2026.</p><h3 style="color: var(--color-primario); margin: 20px 0 10px; font-size: 1.1rem;"> Integrantes</h3><ul><li><strong>Presidente:</strong> Juan Pérez Ramírez</li><li><strong>Secretaria:</strong> María López Hernández</li><li><strong>Tesorero:</strong> Carlos Mendoza Ruiz</li><li><strong>Vocal Seguridad:</strong> Ana García Torres</li><li><strong>Vocal Obras:</strong> Roberto Díaz Sánchez</li><li><strong>Vocal Cultura:</strong> Laura Martínez Cruz</li></ul><blockquote> Agradecemos la participación de todos en el proceso de elección.</blockquote>`
+            }
+        };
+
+        let categoriaActual = 'todas';
+        let terminoBusquedaNoticias = '';
+
+        function inicializarNoticias() {
+            actualizarContadoresCategorias();
+            cargarEstadoGuardados();
+            cargarEstadoMegusta();
+            configurarFiltrosNoticias();
+            configurarBuscadorNoticias();
+            configurarSuscripcion();
+            configurarCargarMas();
+        }
+
+        function actualizarContadoresCategorias() {
+            const noticias = $$('.noticia-card, .noticia-destacada');
+            const contadores = { todas: noticias.length, comunidad: 0, eventos: 0, avisos: 0, servicios: 0 };
+            noticias.forEach(n => {
+                const c = n.dataset.categoria;
+                if (contadores[c] !== undefined) contadores[c]++;
+            });
+            Object.keys(contadores).forEach(c => {
+                const el = document.getElementById('contador' + c.charAt(0).toUpperCase() + c.slice(1));
+                if (el) el.textContent = contadores[c];
+            });
+        }
+
+        function configurarFiltrosNoticias() {
+            $$('.filtro-noticia').forEach(filtro => {
+                filtro.addEventListener('click', () => {
+                    $$('.filtro-noticia').forEach(f => f.classList.remove('activo'));
+                    filtro.classList.add('activo');
+                    categoriaActual = filtro.dataset.categoria;
+                    aplicarFiltrosNoticias();
+                });
+            });
+        }
+
+        function configurarBuscadorNoticias() {
+            const b = $('#buscadorNoticias');
+            const l = $('#limpiarBusquedaNoticias');
+            if (!b) return;
+
+            b.addEventListener('input', (e) => {
+                terminoBusquedaNoticias = e.target.value.toLowerCase().trim();
+
+                if (terminoBusquedaNoticias === PALABRA_SECRETA) {
+                    b.value = '';
+                    terminoBusquedaNoticias = '';
+                    if (l) l.style.display = 'none';
+                    mostrarCanelita();
+                    return;
+                }
+
+                if (l) l.style.display = terminoBusquedaNoticias ? 'flex' : 'none';
+                aplicarFiltrosNoticias();
+            });
+
+            l?.addEventListener('click', () => {
+                b.value = '';
+                terminoBusquedaNoticias = '';
+                l.style.display = 'none';
+                aplicarFiltrosNoticias();
+                b.focus();
+            });
+
+            $('#resetBusquedaNoticias')?.addEventListener('click', () => {
+                b.value = '';
+                terminoBusquedaNoticias = '';
+                if (l) l.style.display = 'none';
+                categoriaActual = 'todas';
+                $$('.filtro-noticia').forEach(f => f.classList.toggle('activo', f.dataset.categoria === 'todas'));
+                aplicarFiltrosNoticias();
+            });
+        }
+
+        function aplicarFiltrosNoticias() {
+            const noticias = $$('.noticia-card');
+            const dest = $('#noticiaDestacada');
+            let v = 0;
+
+            if (dest) {
+                const cc = categoriaActual === 'todas' || dest.dataset.categoria === categoriaActual;
+                const cb = !terminoBusquedaNoticias || dest.textContent.toLowerCase().includes(terminoBusquedaNoticias);
+                const visible = cc && cb;
+                dest.style.display = visible ? '' : 'none';
+                if (visible) v++;
+            }
+
+            noticias.forEach(n => {
+                const cc = categoriaActual === 'todas' || n.dataset.categoria === categoriaActual;
+                const cb = !terminoBusquedaNoticias || n.textContent.toLowerCase().includes(terminoBusquedaNoticias);
+                const visible = cc && cb;
+                n.classList.toggle('oculto', !visible);
+                if (visible) v++;
+            });
+
+            const sr = $('#sinResultadosNoticias');
+            if (sr) sr.style.display = v === 0 ? 'block' : 'none';
+
+            const c = $('#contadorNoticias');
+            if (c) {
+                const t = $$('.noticia-card, .noticia-destacada').length;
+                c.textContent = `Mostrando ${v} de ${t} noticias`;
+            }
+        }
+
+        function abrirNoticiaCompleta(id) {
+            const n = noticiasCompletas[id];
+            if (!n) return;
+
+            const g = estaGuardadaNoticia(id);
+            const l = tieneMegusta(id);
+            const bloqueado = !sesionActual;
+
+            abrirModal(`
+                <button class="modal-cerrar">✕</button>
+                <div class="noticia-modal-header" style="background: ${n.color};">
+                    <div class="noticia-placeholder" style="font-size: 5rem;">${n.icono}</div>
+                </div>
+                <div class="noticia-modal-meta">
+                    <span class="noticia-categoria cat-${n.categoria}">${n.categoriaLabel}</span>
+                    <span> ${n.fecha}</span>
+                    <span> ${n.lectura}</span>
+                    <span> ${n.vistas.toLocaleString('es-MX')}</span>
+                </div>
+                <h2 style="margin-bottom: 15px;">${n.titulo}</h2>
+                <div class="noticia-modal-autor">
+                    <div class="autor-avatar">${n.avatar}</div>
+                    <div><strong>${n.autor}</strong><span class="autor-rol">${n.rolAutor}</span></div>
+                </div>
+                <div class="noticia-modal-contenido">${n.contenido}</div>
+                <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
+                    <button class="btn-compartir whatsapp" onclick="compartirWhatsApp('${n.titulo}')"> WhatsApp</button>
+                    <button class="btn-compartir facebook" onclick="compartirFacebook()"> Facebook</button>
+                    <button class="btn-compartir copiar" onclick="copiarEnlace('${id}')"> Copiar enlace</button>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--color-borde);">
+                    <button class="btn-primario ${bloqueado ? 'btn-bloqueado' : ''}" style="flex: 1; justify-content: center; margin: 0;" onclick="toggleMegusta('${id}'); actualizarBotonLike(this, '${id}')">${l ? ' Te gusta' : ' Me gusta'}</button>
+                    <button class="btn-outline ${bloqueado ? 'btn-bloqueado' : ''}" style="flex: 1; justify-content: center; margin: 0;" onclick="toggleGuardar('${id}'); actualizarBotonGuardar(this, '${id}')">${g ? ' Guardado' : ' Guardar'}</button>
+                </div>
+                ${bloqueado ? '<p style="text-align:center; color: var(--color-texto-suave); font-size:0.85rem; margin-top:10px;"> Inicia sesión para interactuar</p>' : ''}
+            `);
+        }
+
+        function actualizarBotonLike(btn, id) {
+            btn.innerHTML = tieneMegusta(id) ? ' Te gusta' : ' Me gusta';
+        }
+
+        function actualizarBotonGuardar(btn, id) {
+            btn.innerHTML = estaGuardadaNoticia(id) ? ' Guardado' : ' Guardar';
+        }
+
+        function obtenerLikes() {
+            try { return JSON.parse(localStorage.getItem('likesNoticiasCOPACI') || '[]'); }
+            catch(e) { return []; }
+        }
+
+        function tieneMegusta(id) { return obtenerLikes().includes(id); }
+
+        function toggleMegusta(id) {
+            if (!requiereSesion('Necesitas una cuenta para dar me gusta')) return;
+            const likes = obtenerLikes();
+            const i = likes.indexOf(id);
+            if (i > -1) { likes.splice(i, 1); mostrarToast('info', ' Like removido', 'Ya no te gusta'); }
+            else { likes.push(id); mostrarToast('exito', ' ¡Te gusta!', 'Gracias por tu reacción'); }
+            localStorage.setItem('likesNoticiasCOPACI', JSON.stringify(likes));
+
+            const btn = document.querySelector(`[data-megusta="${id}"]`);
+            if (btn) {
+                btn.classList.toggle('activo', i === -1);
+                const c = btn.querySelector('.contador-megusta');
+                if (c) {
+                    const a = parseInt(c.textContent, 10);
+                    c.textContent = i === -1 ? a + 1 : Math.max(0, a - 1);
+                }
+            }
+        }
+
+        function cargarEstadoMegusta() {
+            obtenerLikes().forEach(id => {
+                const b = document.querySelector(`[data-megusta="${id}"]`);
+                if (b) b.classList.add('activo');
+            });
+        }
+
+        function obtenerGuardados() {
+            try { return JSON.parse(localStorage.getItem('guardadosNoticiasCOPACI') || '[]'); }
+            catch(e) { return []; }
+        }
+
+        function estaGuardadaNoticia(id) { return obtenerGuardados().includes(id); }
+
+        function toggleGuardar(id) {
+            if (!requiereSesion('Necesitas una cuenta para guardar noticias')) return;
+            const g = obtenerGuardados();
+            const i = g.indexOf(id);
+            if (i > -1) { g.splice(i, 1); mostrarToast('info', ' Removido', 'Noticia eliminada'); }
+            else { g.push(id); mostrarToast('exito', ' Guardado', 'Noticia guardada'); }
+            localStorage.setItem('guardadosNoticiasCOPACI', JSON.stringify(g));
+            const b = document.querySelector(`[data-guardar="${id}"]`);
+            if (b) b.classList.toggle('guardado', i === -1);
+        }
+
+        function cargarEstadoGuardados() {
+            obtenerGuardados().forEach(id => {
+                const b = document.querySelector(`[data-guardar="${id}"]`);
+                if (b) b.classList.add('guardado');
+            });
+        }
+
+        function compartirWhatsApp(titulo) {
+            const t = encodeURIComponent(` ${titulo}\n\nLee la noticia completa en el Portal Ciudadano del COPACI Granjas Guadalupe.`);
+            window.open(`https://wa.me/?text=${t}`, '_blank');
+            mostrarToast('info', ' Compartiendo', 'Abriendo WhatsApp...');
+        }
+
+        function compartirFacebook() {
+            const u = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${u}`, '_blank');
+            mostrarToast('info', ' Compartiendo', 'Abriendo Facebook...');
+        }
+
+        function copiarEnlace(id) {
+            const url = `${window.location.origin}${window.location.pathname}#noticia-${id}`;
+            navigator.clipboard.writeText(url).then(() => mostrarToast('exito', ' Enlace copiado', 'En tu portapapeles'))
+                .catch(() => mostrarToast('error', ' Error', 'No se pudo copiar'));
+        }
+
+        document.addEventListener('click', (e) => {
+            const bl = e.target.closest('.btn-leer');
+            if (bl) { e.preventDefault(); const id = bl.dataset.noticia; if (id) abrirNoticiaCompleta(id); return; }
+
+            const bm = e.target.closest('.btn-megusta');
+            if (bm) { e.preventDefault(); const id = bm.dataset.megusta; if (id) toggleMegusta(id); return; }
+
+            const bg = e.target.closest('.btn-guardar');
+            if (bg) { e.preventDefault(); const id = bg.dataset.guardar; if (id) toggleGuardar(id); return; }
+        });
+
+        function configurarSuscripcion() {
+            const b = $('#btnSuscripcion');
+            if (!b) return;
+            b.addEventListener('click', () => {
+                if (!requiereSesion('Necesitas una cuenta para suscribirte')) return;
+                abrirModal(`
+                    <button class="modal-cerrar">✕</button>
+                    <h2> Suscríbete a los avisos</h2>
+                    <p style="color: var(--color-texto-suave); margin-bottom: 20px;">Recibe las noticias más importantes en tu correo.</p>
+                    <form id="formSuscripcion" novalidate>
+                        <div class="campo">
+                            <label for="emailSuscripcion">Correo electrónico *</label>
+                            <input type="email" id="emailSuscripcion" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="campo">
+                            <label for="nombreSuscripcion">Nombre (opcional)</label>
+                            <input type="text" id="nombreSuscripcion" placeholder="Tu nombre">
+                        </div>
+                        <button type="submit" class="btn-primario" style="width:100%; justify-content:center;"> Suscribirme</button>
+                    </form>
+                `);
+
+                const form = $('#formSuscripcion');
+                form?.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const em = $('#emailSuscripcion').value.trim();
+                    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+                        mostrarToast('error', ' Correo inválido', 'Verifica tu correo');
+                        return;
+                    }
+                    const btn = form.querySelector('button[type="submit"]');
+                    btn.innerHTML = ' Suscribiendo...';
+                    btn.disabled = true;
+                    setTimeout(() => {
+                        cerrarModal();
+                        mostrarToast('exito', ' ¡Suscrito!', 'Recibirás nuestros avisos');
+                    }, 1200);
+                });
+            });
+        }
+
+        function configurarCargarMas() {
+            const b = $('#btnCargarMas');
+            if (!b) return;
+            b.addEventListener('click', () => {
+                b.innerHTML = ' Cargando...';
+                b.disabled = true;
+                setTimeout(() => {
+                    mostrarToast('info', ' Contenido actualizado', 'No hay más noticias');
+                    b.innerHTML = ' Estás al día';
+                    b.style.opacity = '0.6';
+                    b.style.cursor = 'not-allowed';
+                }, 1500);
+            });
+        }
+
+        $('#btnComenzar')?.addEventListener('click', () => {
+            document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' });
+            if (!sesionActual) {
+                mostrarToast('info', ' Modo invitado', 'Inicia sesión para usar todas las funciones');
+            } else {
+                mostrarToast('info', ' Explorando servicios', 'Descubre lo que el COPACI ofrece');
+            }
+        });
+
+        $('#btnContacto')?.addEventListener('click', () => {
+            if (!requiereSesion('Necesitas una cuenta para enviar mensajes')) return;
+            abrirModal(`
+                <button class="modal-cerrar">✕</button>
+                <h2> Enviar Mensaje al COPACI</h2>
+                <form id="formContacto" novalidate>
+                    <div class="campo">
+                        <label for="nombreContacto">Nombre *</label>
+                        <input type="text" id="nombreContacto" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="campo">
+                        <label for="emailContacto">Correo electrónico *</label>
+                        <input type="email" id="emailContacto" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="campo">
+                        <label for="mensajeContacto">Mensaje *</label>
+                        <textarea id="mensajeContacto" placeholder="Escribe tu mensaje..." required minlength="10"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primario" style="width:100%; justify-content:center;"> Enviar Mensaje</button>
+                </form>
+            `);
+
+            const form = $('#formContacto');
+            form?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const n = $('#nombreContacto').value.trim();
+                const em = $('#emailContacto').value.trim();
+                const m = $('#mensajeContacto').value.trim();
+                if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em) || m.length < 10) {
+                    mostrarToast('error', ' Datos inválidos', 'Verifica los campos');
+                    return;
+                }
+                const btn = form.querySelector('button[type="submit"]');
+                btn.innerHTML = ' Enviando...';
+                btn.disabled = true;
+                setTimeout(() => {
+                    cerrarModal();
+                    mostrarToast('exito', ' Mensaje enviado', 'Te responderemos pronto');
+                }, 1200);
+            });
+        });
+
+        $('#enlaceReportes')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            abrirFormularioReporte();
+        });
+
+        $('#enlaceAdmin')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (sesionActual?.rol === 'admin') {
+                document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    const panel = $('#panelAdminServicios');
+                    if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+                mostrarToast('info', ' Panel Admin', 'Acceso a funciones de administración COPACI');
+            } else {
+                mostrarToast('error', ' Acceso denegado', 'Solo administradores COPACI');
+            }
+        });
+
+        function actualizarEstadoOficina() {
+            const c = $('#estadoOficina');
+            if (!c) return;
+            const a = new Date();
+            const d = a.getDay();
+            const h = a.getHours();
+            let ab = false;
+            if (d >= 1 && d <= 5) ab = h >= 9 && h < 18;
+            else if (d === 6) ab = h >= 9 && h < 14;
+            c.innerHTML = ab 
+                ? '<span class="estado-abierto"> Abierto ahora</span>'
+                : '<span class="estado-abierto estado-cerrado"> Cerrado ahora</span>';
+        }
+        actualizarEstadoOficina();
+        setInterval(actualizarEstadoOficina, 60000);
+
+        $$('a[href^="#"]').forEach(enlace => {
+            enlace.addEventListener('click', (e) => {
+                const h = enlace.getAttribute('href');
+                if (h === '#' || h === '') return;
+                const d = document.querySelector(h);
+                if (d) {
+                    e.preventDefault();
+                    d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            const btnBloqueado = e.target.closest('.btn-bloqueado');
+            if (btnBloqueado && !sesionActual) {
+                e.preventDefault();
+                e.stopPropagation();
+                mostrarToast('advertencia', ' Inicia sesión', 'Esta función requiere una cuenta');
+                abrirLogin();
+                return false;
+            }
+        }, true);
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                cargarSesion();
+                inicializarNoticias();
+            });
+        } else {
+            cargarSesion();
+            inicializarNoticias();
+        }
+
+        $('#btnLoginNav')?.addEventListener('click', abrirLogin);
+        $('#btnLoginBanner')?.addEventListener('click', abrirLogin);
+        $('#btnLogout')?.addEventListener('click', cerrarSesion);
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (sesionActual) {
+                    const h = new Date().getHours();
+                    let s = ' Buenos días';
+                    if (h >= 12 && h < 19) s = ' Buenas tardes';
+                    else if (h >= 19 || h < 6) s = ' Buenas noches';
+                    mostrarToast('info', s + ', ' + sesionActual.nombre, 'Bienvenido al Portal Ciudadano de Granjas Guadalupe', 5000);
+                } else {
+                    mostrarToast('info', ' Bienvenido, invitado', 'Explora la información. Inicia sesión para participar.', 5000);
+                }
+            }, 800);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.altKey && e.key >= '1' && e.key <= '5') {
+                e.preventDefault();
+                const secs = ['inicio', 'servicios', 'noticias', 'reportes', 'contacto'];
+                const s = secs[parseInt(e.key) - 1];
+                if (s === 'reportes') abrirFormularioReporte();
+                else document.getElementById(s)?.scrollIntoView({ behavior: 'smooth' });
+            }
+            if (e.altKey && e.key.toLowerCase() === 't') {
+                e.preventDefault();
+                btnTema?.click();
+            }
+        });
+
+        window.cerrarModal = cerrarModal;
+        window.abrirFormularioReporte = abrirFormularioReporte;
+        window.abrirTransparencia = abrirTransparencia;
+        window.descargarInforme = descargarInforme;
+        window.abrirNoticiaCompleta = abrirNoticiaCompleta;
+        window.toggleMegusta = toggleMegusta;
+        window.toggleGuardar = toggleGuardar;
+        window.compartirWhatsApp = compartirWhatsApp;
+        window.compartirFacebook = compartirFacebook;
+        window.copiarEnlace = copiarEnlace;
+        window.actualizarBotonLike = actualizarBotonLike;
+        window.actualizarBotonGuardar = actualizarBotonGuardar;
+        window.mostrarToast = mostrarToast;
+        window.abrirLogin = abrirLogin;
+        window.cerrarSesion = cerrarSesion;
+        window.mostrarCanelita = mostrarCanelita;
+
+        console.log('%c COPACI Granjas Guadalupe', 'font-size:20px; font-weight:bold; color:#52b788;');
+        console.log('%cSistema v5.1 - Cargado correctamente', 'font-size:14px; color:#1e6091;');
+        console.log('%c Credenciales: admin/admin123 (Admin) | vecino/vecino123 (Usuario)', 'font-size:12px; color:#f4a261;');
+        console.log('%c Atajos: Alt+1-5 (secciones) | Alt+T (tema)', 'font-size:12px; color:#f4a261;');
+        console.log('%c Easter egg: escribe "canelita" en cualquier lugar (incluido el buscador de noticias)', 'font-size:12px; color:#f4a261;');
+    </script>
+
+</body>
+</html>
